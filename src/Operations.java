@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Operations{
 
-    private static final int WAIT_SEC = 3; //timeout for thread
+    private static final int WAIT_SEC = 1000; //timeout for thread
 
     public static void main(String args[]) throws InsufficientResourcesException {
         final Account a = new Account(1000);
@@ -54,6 +54,7 @@ public class Operations{
                 }
             } finally {
                 acc1.getLock().unlock();
+                acc2.getLock().unlock();
             }
         }else {
             acc1.incFailedTransferCount();
