@@ -39,11 +39,11 @@ public class Operations{
     private static void transfer(Account acc1, Account acc2, int amount)
             throws InsufficientResourcesException, InterruptedException {
 
-        if (acc1.getBalance() < amount)
-            throw new InsufficientResourcesException();
-
         if (acc1.getLock().tryLock(WAIT_SEC, TimeUnit.SECONDS)) {
             try {
+
+                if (acc1.getBalance() < amount)
+                    throw new InsufficientResourcesException();
                 if (acc2.getLock().tryLock(WAIT_SEC, TimeUnit.SECONDS)) {
                     try {
                         acc1.withdraw(1000);
